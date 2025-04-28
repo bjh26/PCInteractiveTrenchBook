@@ -38,7 +38,6 @@ export class Book {
     /**
      * Goes to next page.
      */
-
     next() {
         if(this.currentPage < this.pages.length - 2) {
             this.currentPage += 1;
@@ -51,7 +50,6 @@ export class Book {
     /**
      * Goes to previous page.
      */
-
     prev() {
         if(this.currentPage >= 1) {
             this.currentPage -= 1;
