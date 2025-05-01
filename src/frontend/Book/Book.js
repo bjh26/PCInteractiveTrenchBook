@@ -1,4 +1,5 @@
 import { getPages } from "../middle.js";
+
 export class Book {
 
     /**
@@ -14,21 +15,23 @@ export class Book {
         this.author = author;
         this.currentPage = 0;
         this.pages =[];
+        console.log('start')
         this.loadPages(); 
     }
 
     /**
      * Load pages asynchronously by calling getPages.
      */
-      async loadPages() {
+    async loadPages() {
+        console.log('pages loading...')
         this.pages = await getPages(this.areaAndNumber, this.year, this.author);
-        this.updatePage();  // Once pages are loaded, update the current page view
+        await this.updatePage();  // Once pages are loaded, update the current page view
     }
 
      /**
      * Update the current page view after the pages have been loaded.
      */
-     updatePage() {
+    updatePage() {
         if (this.pages.length > 0) {
             document.getElementById("page").src = this.getCurrPage();
             document.getElementById('pageNo').value = this.currentPage;
@@ -63,7 +66,17 @@ export class Book {
      * Returns path to current page.
      */ 
     getCurrPage() { // this function needs to be better
-        return `../TrenchBookExampleImages/${this.areaAndNumber}TrenchBookP${this.currentPage}.jpg`;
+        console.log(this.currentPage)
+        console.log(this.pages)
+
+        const page = this.pages.find(page => page.pageNumber === this.currentPage);
+
+        if (!page) {
+          console.warn(`No page found for area ${this.areaAndNumber}, page ${this.currentPage}`);
+          return null;
+        }
+        console.log(`..${page.imageUrl}`);
+        return (page.imageUrl);
     }
 
     /**
@@ -72,7 +85,7 @@ export class Book {
     setSlider() {
         const slider = document.getElementById('slider');
         slider.min = 0;
-        slider.max = this.pages.length - 1;
+        slider.max = this.pages.length - 2;
         slider.value = this.currentPage;
     }
 
@@ -89,3 +102,9 @@ export class Book {
         } 
     }
 }
+
+// database server that provides all the information (aka all the images).
+// store link of image in the cloud.
+// route that gets all the images
+// or do multiple fetches
+// USE CLOUD STORAGE TO PULL IMAGES

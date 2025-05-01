@@ -1,6 +1,9 @@
 {
   "dependencies": {
-    "express": "^5.1.0"
+    "aws-sdk": "^2.1692.0",
+    "express": "^5.1.0",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7"
   },
   "type": "module"
 }

@@ -5,7 +5,7 @@ const book = new Book('1969', '1969');
 // Setting up the page, likely to move to own function when scaling.
 const page = document.getElementById('page');
 book.setSlider();
-page.src = book.getCurrPage();
+page.src = await book.getCurrPage();
 document.getElementById('pageNo').value = 0;
 document.getElementById('slider').value = 0;
 
