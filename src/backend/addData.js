@@ -17,9 +17,10 @@ const seedPages = async () => {
 
   const data = await s3.listObjectsV2(params).promise();
   for (const item of data.Contents) {
-    const file = item.Key;
+    const file = item.Key; 
     const match = file.match(/(\d+)(?=\.\w+$)/);
     const pageNumber = match ? parseInt(match[0]) : null;
+    // need to add here how to get the areaAndNumber using regex!
     if (pageNumber === null) continue;
     const imgUrl = `https://${BUCKET_NAME}.s3.amazonaws.com/${file}`;
     await pageModel.create({
@@ -28,7 +29,8 @@ const seedPages = async () => {
       pageNumber: pageNumber,
       author: "PC",
       fileName: file,
-      imageUrl: imgUrl
+      imageUrl: imgUrl,
+      keywords: [] // you just added this
     });
   }
   // const imageDir = path.join("../frontend/TrenchBookExampleImages");
