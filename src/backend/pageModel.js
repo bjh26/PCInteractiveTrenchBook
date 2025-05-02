@@ -36,6 +36,10 @@ const pageModel = sequelize.define("Pages", {
     imageUrl: { // optional if using cloud storage
       type: DataTypes.STRING,
       allowNull: true
+    },
+    keywords: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
 });
 

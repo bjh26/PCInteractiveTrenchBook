@@ -18,38 +18,24 @@ const seedPages = async () => {
   const data = await s3.listObjectsV2(params).promise();
   for (const item of data.Contents) {
     const file = item.Key; 
-    const match = file.match(/(\d+)(?=\.\w+$)/);
-    const pageNumber = match ? parseInt(match[0]) : null;
+    const matchPage = file.match(/(\d+)(?=\.\w+$)/);
+    const matchTitle = file.match(/\/([^/-]+)-/);
+    const pageNumber = matchPage ? parseInt(matchPage[0]) : null;
+    const areaAndNumber = matchTitle ? matchTitle[1] : 'PC'
+    console.log(areaAndNumber)
     // need to add here how to get the areaAndNumber using regex!
     if (pageNumber === null) continue;
     const imgUrl = `https://${BUCKET_NAME}.s3.amazonaws.com/${file}`;
     await pageModel.create({
-      areaAndNumber: "1969",
+      areaAndNumber: areaAndNumber,
       year: "1969",
       pageNumber: pageNumber,
       author: "PC",
       fileName: file,
       imageUrl: imgUrl,
-      keywords: [] // you just added this
+      keywords: ""
     });
   }
-  // const imageDir = path.join("../frontend/TrenchBookExampleImages");
-  // const files = fs.readdirSync(imageDir);
-  // const BUCKET_NAME = "pc-interactive-trench-book-assets";
-  // console.log('seeding pages...')
-  // for (const file of files) {
-  //   const match = file.match(/(\d+)(?=\.\w+$)/);
-  //   const pageNumber = match ? parseInt(match[0]) : null;
-  //   if (pageNumber === null) continue;
-  //   const page = await pageModel.create({
-  //     areaAndNumber: "1969",
-  //     year: "1969",
-  //     pageNumber: pageNumber,
-  //     author: "PC",
-  //     fileName: file,
-  //     imageUrl: `${file}`
-  //   });
-  // }
 };
 
 export { seedPages }
