@@ -40,6 +40,10 @@ const pageModel = sequelize.define("Pages", {
     keywords: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    text:{
+      type: DataTypes.STRING,
+      allowNull: true
     }
 });
 

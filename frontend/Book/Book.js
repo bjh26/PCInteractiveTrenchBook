@@ -1,5 +1,4 @@
 import { getPages } from "../middle.js";
-
 export class Book {
 
     /**
@@ -110,6 +109,21 @@ export class Book {
         return this.areaAndNumber;
     }
 
+    /**
+     * Shows raw text file.
+     */
+    text() {
+        const mainBlock = document.getElementById('mainBlock');
+        mainBlock.innerHTML = ''; // clear the innerHTML
+        mainBlock.innerHTML = `<div class="button-left">
+                <button id="prev">&lt</button>
+            </div>
+            <p id="page">${this.pages.find(page => page.pageNumber === this.currentPage).text}</p>
+            <div class="button-right">
+                <button id="next">&gt</button>
+            </div> `;
+    }
+
     render() {
         const mainBlock = document.getElementById('mainBlock');
         mainBlock.classList.add('page-container');
@@ -135,16 +149,9 @@ export class Book {
                             </div>
                             <div class="page-num-container">
                                 <input type="number" id="pageNo">
+                                <button class='raw-text-button' id='rawText'>View raw text</button>
                             </div>`;
         body.append(pageJump);
-        // const sliderContainer = document.createElement('div');
-        // sliderContainer.innerHTML = 
-        // const pageNumContainer = document.createElement('div');
-        // pageNumContainer.innerHTML = `<div class="page-num-container">
-        //         <input type="number" id="pageNo">
-        //     </div>`;
-        // body.append(sliderContainer);
-        // body.append(pageNumContainer);
         console.log('rendered!');
     }
 }

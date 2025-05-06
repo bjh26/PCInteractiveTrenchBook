@@ -44,6 +44,10 @@ export async function getPages(areaAndNumber, year, author){
 //     }
 // }
 
+/**
+ * Gets all trench books.
+ * @returns 
+ */
 export async function allBooks() {
     try {
         const res = await fetch(`/trenchbooks`, {
@@ -65,7 +69,7 @@ export async function allBooks() {
 }
 
 /**
- * 
+ * Gets all trench books created in specified year.
  * @param {String} year 
  * @returns 
  */
@@ -90,6 +94,7 @@ export async function booksByYear(year) {
 }
 
 /**
+ * Gets all trench books related to specified trench.
  * @param {String} areaAndNumber 
  * @returns 
  */

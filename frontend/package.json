@@ -26,5 +26,8 @@
   "scripts": {
     "dev": "",
     "test": ""
+  },
+  "dependencies": {
+    "node-tesseract-ocr": "^2.2.1"
   }
 }
