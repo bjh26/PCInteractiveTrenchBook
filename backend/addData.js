@@ -23,7 +23,6 @@ const seedPages = async () => {
     const pageNumber = matchPage ? parseInt(matchPage[0]) : null;
     const areaAndNumber = matchTitle ? matchTitle[1] : 'PC'
     console.log(areaAndNumber)
-    // need to add here how to get the areaAndNumber using regex!
     if (pageNumber === null) continue;
     const imgUrl = `https://${BUCKET_NAME}.s3.amazonaws.com/${file}`;
     await pageModel.create({

@@ -25,7 +25,7 @@ export class Book {
     async loadPages() {
         console.log('pages loading...')
         this.pages = await getPages(this.areaAndNumber, this.year, this.author);
-        await this.updatePage();  // Once pages are loaded, update the current page view
+        this.updatePage();  // Once pages are loaded, update the current page view
     }
 
      /**
@@ -65,7 +65,7 @@ export class Book {
     /**
      * Returns path to current page.
      */ 
-    getCurrPage() { // this function needs to be better
+    getCurrPage() { 
         console.log(this.currentPage)
         console.log(this.pages)
 
@@ -75,6 +75,7 @@ export class Book {
           console.warn(`No page found for area ${this.areaAndNumber}, page ${this.currentPage}`);
           return null;
         }
+
         console.log(`..${page.imageUrl}`);
         return (page.imageUrl);
     }
@@ -100,6 +101,51 @@ export class Book {
         } else {
             alert('this page doesn\'t exit');
         } 
+    }
+
+    /**
+     * Gets trench book title.
+     */
+    getTitle() {
+        return this.areaAndNumber;
+    }
+
+    render() {
+        const mainBlock = document.getElementById('mainBlock');
+        mainBlock.classList.add('page-container');
+        const navBar = document.getElementById('nav-bar')
+        navBar.innerHTML = '';
+        mainBlock.innerHTML = ''; // clear the innerHTML
+        navBar.innerHTML = `<h1 class="title-container nav-bar-item" id="title"> Trench Book Title </h1>
+            <button class="hamburger" id="home">Home</button>`;
+        mainBlock.innerHTML = `<div class="button-left">
+                <button id="prev">&lt</button>
+            </div>
+            <img id="page" alt="trench book page">
+            <div class="button-right">
+                <button id="next">&gt</button>
+            </div> `;
+        const body = document.body;
+        const pageJump = document.createElement('div');
+        pageJump.classList.add('page-jump-container');
+        pageJump.id = 'pageJump';
+        pageJump.innerHTML = `<div class="slider-container">
+                                <input type="range" id="slider">
+                                <div class="slider-tooltip"></div>
+                            </div>
+                            <div class="page-num-container">
+                                <input type="number" id="pageNo">
+                            </div>`;
+        body.append(pageJump);
+        // const sliderContainer = document.createElement('div');
+        // sliderContainer.innerHTML = 
+        // const pageNumContainer = document.createElement('div');
+        // pageNumContainer.innerHTML = `<div class="page-num-container">
+        //         <input type="number" id="pageNo">
+        //     </div>`;
+        // body.append(sliderContainer);
+        // body.append(pageNumContainer);
+        console.log('rendered!');
     }
 }
 

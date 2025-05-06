@@ -22,17 +22,9 @@
     "email": "bjhuang@umass.edu",
     "url": ""
   },
-  "contributors": [
-
-  ],
+  "contributors": [],
   "scripts": {
     "dev": "",
     "test": ""
-  },
-  "dependencies": {
-
-  },
-  "devDependencies": {
-
   }
 }
