@@ -21,29 +21,6 @@ export async function getPages(areaAndNumber, year, author){
     }
 }   
 
-// export async function getBooks(){
-//     try{
-//         const res = await fetch('/trenchbooks', {
-//             method: "GET",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             }
-//         });
-        
-//         if(!res.ok){
-//             const errorMessage = await res.json();
-//             throw new Error(errorMessage.error);
-//         }
-
-//         const books = await res.json();
-//         return books;
-
-//     } catch(err) {
-//         alert(`${err.message}`);
-//         return [];
-//     }
-// }
-
 /**
  * Gets all trench books.
  * @returns 

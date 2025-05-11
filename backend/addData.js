@@ -46,7 +46,6 @@ const seedPages = async () => {
 
 async function getText(imgUrl) {
   const text = await tesseract.recognize(imgUrl, config);
-  console.log('TEXT', text);
   return text;
 }
 

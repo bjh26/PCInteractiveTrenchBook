@@ -21,7 +21,6 @@ const s3 = new AWS.S3({
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 
-// app.use(express.static("../frontend/TrenchBookExampleImages"));
 app.use(express.static("../frontend/Main"));
 app.use(express.static("../frontend/Book"));
 app.use(express.static("../frontend"));
@@ -33,7 +32,7 @@ app.listen(PORT, () => {
 
 async function startServer() {
   console.log('loading pre-made data...')
-    await seedPages(); 
+  await seedPages(); 
   console.log('syncing database...')
     await sequelize.sync(); 
     console.log('SERVER STARTING')
