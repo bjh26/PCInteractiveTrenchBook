@@ -1,11 +1,19 @@
 import { sequelize, pageModel } from "./pageModel.js"; 
 import AWS from 'aws-sdk';
 import dotenv from 'dotenv';
+import tesseract from "node-tesseract-ocr";
 
 dotenv.config(); 
 const s3 = new AWS.S3({
   region: 'us-east-2'
 });
+
+// configuration for tesseract module
+const config = {
+  lang: "eng",
+  oem: 1,
+  psm: 3,
+}
 
 const BUCKET_NAME = "pc-interactive-trench-book-assets";
 
@@ -21,9 +29,7 @@ const seedPages = async () => {
     const matchPage = file.match(/(\d+)(?=\.\w+$)/);
     const matchTitle = file.match(/\/([^/-]+)-/);
     const pageNumber = matchPage ? parseInt(matchPage[0]) : null;
-    const areaAndNumber = matchTitle ? matchTitle[1] : 'PC'
-    console.log(areaAndNumber)
-    // need to add here how to get the areaAndNumber using regex!
+    const areaAndNumber = matchTitle ? matchTitle[1] : 'PC';
     if (pageNumber === null) continue;
     const imgUrl = `https://${BUCKET_NAME}.s3.amazonaws.com/${file}`;
     await pageModel.create({
@@ -33,9 +39,14 @@ const seedPages = async () => {
       author: "PC",
       fileName: file,
       imageUrl: imgUrl,
-      keywords: ""
+      text: await getText(imgUrl)
     });
   }
 };
+
+async function getText(imgUrl) {
+  const text = await tesseract.recognize(imgUrl, config);
+  return text;
+}
 
 export { seedPages }

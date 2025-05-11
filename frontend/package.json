@@ -22,17 +22,12 @@
     "email": "bjhuang@umass.edu",
     "url": ""
   },
-  "contributors": [
-
-  ],
+  "contributors": [],
   "scripts": {
     "dev": "",
     "test": ""
   },
   "dependencies": {
-
-  },
-  "devDependencies": {
-
+    "node-tesseract-ocr": "^2.2.1"
   }
 }
