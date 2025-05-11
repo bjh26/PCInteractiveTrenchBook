@@ -128,11 +128,11 @@ app.get('/trenchbooks/:author', async (req, res) => {
 });
 
 app.get('/trenchbooks/:trench', async (req, res) => {
-  const areaAndNumber = req.params.areaAndNumber;
+  const areaAndNumber = req.params.trench;
   try {
     const books = await fs.readFile('../data/areaAndNumber_year_uri.json', 'utf8');
     const booksArr = JSON.parse(books);
-    const byArea = booksArr.filter(b => b['Trench and Trench Number'] === areaAndNumber);
+    const byArea = booksArr.filter(b =>  b['Trench and Trench Number'].trim().toLowerCase() === areaAndNumber.trim().toLowerCase());
     res.json(byArea);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch desired year"});

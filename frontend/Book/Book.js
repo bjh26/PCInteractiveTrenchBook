@@ -1,4 +1,5 @@
 import { getPages } from "../middle.js";
+import library from "../Home/home.js";
 export class Book {
 
     /**
@@ -171,9 +172,13 @@ export class Book {
             }
             this.setSlider();
         });
+        // Home button
+        document.getElementById('home').addEventListener('click', () => {
+            library.render();
+        });
     }
 
-    render() {
+    async render() {
         const mainBlock = document.getElementById('mainBlock');
         mainBlock.classList.add('page-container');
         const navBar = document.getElementById('nav-bar');
@@ -211,9 +216,3 @@ export class Book {
         this.addEventListeners();
     }
 }
-
-// database server that provides all the information (aka all the images).
-// store link of image in the cloud.
-// route that gets all the images
-// or do multiple fetches
-// USE CLOUD STORAGE TO PULL IMAGES
