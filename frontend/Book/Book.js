@@ -17,6 +17,8 @@ export class Book {
         this.pages =[];
         this.viewMode = 'img';
         console.log('start')
+        console.log('areaandnumber', this.areaAndNumber.replace(/\s+/g, ''));
+        console.log('year', this.year.toString()); // MAKE THIS TO STRING
         this.loadPages(); 
     }
 
@@ -24,8 +26,8 @@ export class Book {
      * Load pages asynchronously by calling getPages.
      */
     async loadPages() {
-        console.log('pages loading...')
-        this.pages = await getPages(this.areaAndNumber, this.year, this.author);
+        console.log('pages loading...');
+        this.pages = await getPages(this.areaAndNumber.replace(/\s+/g, ''), this.year.toString(), this.author);
         this.updatePage();  // Once pages are loaded, update the current page view
     }
 

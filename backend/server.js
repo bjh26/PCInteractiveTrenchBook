@@ -8,7 +8,6 @@ import path from 'path';
 
 // This loads the .env file
 dotenv.config({ path: '../.env' });  
-console.log(process.env)
 
 // instantiate Express
 const app = express();
@@ -32,13 +31,9 @@ app.listen(PORT, () => {
 
 async function startServer() {
   console.log('loading pre-made data...')
-  await seedPages(); 
+  await seedPages("Tesoro26", '2015'); 
   console.log('syncing database...')
-    await sequelize.sync(); 
-    console.log('SERVER STARTING')
-    app.listen(PORT, () => {
-      console.log(`Server is running on http://localhost:${PORT}`);
-    });
+  await sequelize.sync(); 
 }
 
 startServer();

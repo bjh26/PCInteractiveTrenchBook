@@ -1,4 +1,3 @@
-import { Book } from "../Book/Book.js";
 import library from "../Home/home.js";
 
 document.addEventListener('DOMContentLoaded', async () => {

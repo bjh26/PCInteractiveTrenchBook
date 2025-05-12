@@ -86,7 +86,7 @@ class Library {
             e.preventDefault();  
             // Get the trench and year from the clicked title's data attributes
             const trench = e.target.dataset.areaAndNumber;
-            const year = parseInt(e.target.dataset.year);
+            const year = e.target.dataset.year;
             // Instantiate the Book class and render the book
             const book = new Book(trench, year);
             await book.render();  // Render the selected book

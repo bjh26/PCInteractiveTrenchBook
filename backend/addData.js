@@ -17,7 +17,7 @@ const config = {
 
 const BUCKET_NAME = "pc-interactive-trench-book-assets";
 
-const seedPages = async () => {
+const seedPages = async (title, year) => {
   await sequelize.sync({ force: true });
   const params = {
     Bucket: BUCKET_NAME
@@ -26,15 +26,14 @@ const seedPages = async () => {
   const data = await s3.listObjectsV2(params).promise();
   for (const item of data.Contents) {
     const file = item.Key; 
+    if (!file.includes(`${title}-${year}`)) continue;
     const matchPage = file.match(/(\d+)(?=\.\w+$)/);
-    const matchTitle = file.match(/\/([^/-]+)-/);
     const pageNumber = matchPage ? parseInt(matchPage[0]) : null;
-    const areaAndNumber = matchTitle ? matchTitle[1] : 'PC';
     if (pageNumber === null) continue;
     const imgUrl = `https://${BUCKET_NAME}.s3.amazonaws.com/${file}`;
     await pageModel.create({
-      areaAndNumber: areaAndNumber,
-      year: "1969",
+      areaAndNumber: title,
+      year: year,
       pageNumber: pageNumber,
       author: "PC",
       fileName: file,
