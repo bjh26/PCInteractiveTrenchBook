@@ -35,7 +35,7 @@ class Library {
         await this.loadTitles();
         const mainBlock = document.getElementById('mainBlock');
         const pageJump = document.getElementById('pageJump');
-        // pageJump.remove();
+        pageJump.remove();
         mainBlock.classList.remove('page-container');
         const navBar = document.getElementById('nav-bar');
         navBar.innerHTML = '';
@@ -82,11 +82,13 @@ class Library {
      */
     getBooksLink(){
         const bookTitle = document.body.querySelectorAll('.book-container');
+        // const mainBlock = document.getElementById('mainBlock');
         bookTitle.forEach(e => e.addEventListener('click', async (e) => {
             e.preventDefault();  
             // Get the trench and year from the clicked title's data attributes
             const trench = e.target.dataset.areaAndNumber;
             const year = e.target.dataset.year;
+            console.log('trench',trench,'year',year);
             // Instantiate the Book class and render the book
             const book = new Book(trench, year);
             await book.render();  // Render the selected book
@@ -109,6 +111,8 @@ class Library {
             <span>${b['Year']}</span> 
             <span class='author'>${b['Author']}</span>`;
             mainBlock.appendChild(bookDiv);
+            bookDiv.dataset.areaAndNumber = b['Trench and Trench Number'];
+            bookDiv.dataset.year = b['Year'];
         });
         this.getBooksLink();
     }
@@ -126,6 +130,8 @@ class Library {
             <span>${b['Year']}</span> 
             <span class='author'>${b['Author']}</span>`;
             mainBlock.appendChild(bookDiv);
+            bookDiv.dataset.areaAndNumber = b['Trench and Trench Number'];
+            bookDiv.dataset.year = b['Year'];
         });
         this.getBooksLink();
     }

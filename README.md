@@ -17,4 +17,4 @@ The goal of this goal is to mimic the action of flipping through a book in real 
 
 ## Acknowledgements
 - This project is used to fulfill the Honors Thesis requirement for the University of Massachusetts Amherst Commonwealth Honors College.
-- I want to extend my most heartfelt gratitude to my parents and sisters; primary advisor Cole Reilly; secondary advisor Anthony Tuck; academic advisors Cody Olson and Isaac Goldstein; OpenContext founder Eric Kansa; Poggio Civitate members Kate Kriendler and Anne Glennie; and my friends and professors for making this project possible.
+- I want to extend my most heartfelt gratitude to my parents and sisters; primary advisor Cole Reilly; secondary advisor Anthony Tuck; academic advisors Cody Olson and Isaac Goldstein; OpenContext's Eric Kansa; Poggio Civitate members Kate Kriendler and Anne Glennie; CompSci326 professor Joe Chiu and Team #25 members and TA, and my friends and professors for making this project possible.

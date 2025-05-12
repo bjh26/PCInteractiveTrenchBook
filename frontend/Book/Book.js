@@ -16,10 +16,6 @@ export class Book {
         this.currentPage = 0;
         this.pages =[];
         this.viewMode = 'img';
-        console.log('start')
-        console.log('areaandnumber', this.areaAndNumber.replace(/\s+/g, ''));
-        console.log('year', this.year.toString()); // MAKE THIS TO STRING
-        this.loadPages(); 
     }
 
     /**
@@ -80,7 +76,7 @@ export class Book {
             this.currentPage -= 1;
             this.updatePage();
         } else {
-            alert("You have reached the first page.")
+            alert("You have reached the first page.");
         }
     }
 
@@ -181,12 +177,13 @@ export class Book {
     }
 
     async render() {
+        await this.loadPages(); 
         const mainBlock = document.getElementById('mainBlock');
         mainBlock.classList.add('page-container');
         const navBar = document.getElementById('nav-bar');
         // Nav Bar html
         navBar.innerHTML = '';
-        navBar.innerHTML = `<h1 class="title-container nav-bar-item" id="title"> Trench Book Title </h1>
+        navBar.innerHTML = `<h1 class="title-container nav-bar-item" id="title"> ${this.getTitle()} </h1>
             <button class="hamburger" id="home">Home</button>`;
         // Main Block html
         mainBlock.innerHTML = ''; // clear the innerHTML
@@ -199,6 +196,9 @@ export class Book {
                                </div> `;
         // Adds the navigational elements.
         const body = document.body;
+        if(document.getElementById('pageJump')){
+            document.getElementById('pageJump').remove();
+        }
         const pageJump = document.createElement('div');
         pageJump.classList.add('page-jump-container');
         pageJump.id = 'pageJump';
@@ -212,6 +212,9 @@ export class Book {
                             </div>`;
         body.append(pageJump);
         document.getElementById('rawText').textContent = this.viewMode === 'img' ? 'View raw text' : 'View image';
+        // document.getElementById('slider').value = 0;
+        console.log('this.pages length', this.pages.length)
+        console.log('curr page', this.currentPage)
         console.log('rendered!');
         this.updatePage(); 
         // attach event listeners
