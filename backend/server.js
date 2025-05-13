@@ -4,7 +4,6 @@ import { sequelize, pageModel } from "./pageModel.js";
 import { seedPages } from "./addData.js"
 import dotenv from 'dotenv';
 import fs from 'fs/promises';
-import path from 'path';
 
 // This loads the .env file
 dotenv.config({ path: '../.env' });  
@@ -29,9 +28,12 @@ app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
+/**
+ * Starts the server. 
+ */
 async function startServer() {
   console.log('loading pre-made data...')
-  await seedPages("Tesoro26", '2015'); 
+  await seedPages("Tesoro26", '2015'); // seeded pages for demo, will need to generalize.
   console.log('syncing database...')
   await sequelize.sync(); 
 }

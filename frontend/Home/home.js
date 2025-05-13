@@ -1,10 +1,30 @@
 import { allBooks } from "../middle.js";
 import { Book } from "../Book/Book.js";
-/**
- * Creates a Library class that stores all the trench book titles to date.
- * Exports a singleton instance of Library.
- */
+
 class Library {
+    /**
+    * Creates a Library class that stores all the trench book titles to date.
+    * Exports a singleton instance of Library.
+    */
+
+    /**
+     * @type {Object[]} 
+     * An array of objects where each object includes the trench book's URI, Trench and Trench Number, and Year of Excavation.
+     */
+    books;
+
+    /**
+     * @type {number[]} 
+     * An array that stores all the years of all excavation seasons. 
+     */
+    years;
+
+    /**
+     * @type {undefined | (event:any) => void} 
+     * The handler for global keydown events. Initially set to undefined. 
+     */
+    handler;
+
     constructor(){
         this.books = [];
         this.years = [
@@ -23,6 +43,7 @@ class Library {
 
     /**
      * Loads books asynchronously by calling allBooks.
+     * @returns void
      */
     async loadTitles() {
         console.log('book titles loading...')
@@ -31,6 +52,7 @@ class Library {
 
     /**
      * Renders the main library.
+     * @returns void
      */
     async render() {
         await this.loadTitles();
@@ -49,7 +71,6 @@ class Library {
                 <option value="" disabled selected>By Year</option>
             </select>`;
         // for later: <select class="filter-button" id="byAuthor">By Author</select>
-        console.log('books:', this.books);
         this.books.forEach(b => {
             const bookDiv = document.createElement('div');
             bookDiv.classList.add('book-container');
@@ -81,18 +102,15 @@ class Library {
 
     /**
      * Links each book to its respective trench book page.
+     * @returns void
      */
     getBooksLink(){
         const bookTitle = document.body.querySelectorAll('.book-container');
-        console.log('booktitle', bookTitle)
-        // const mainBlock = document.getElementById('mainBlock');
         bookTitle.forEach(e => e.addEventListener('click', async (e) => {
             e.preventDefault();  
             // Get the trench and year from the clicked title's data attributes
-            console.log('element: ', e);
             const trench = e.currentTarget.dataset.areaAndNumber;
             const year = e.currentTarget.dataset.year;
-            console.log('trench',trench,'year',year);
             // Instantiate the Book class and render the book
             const book = new Book(trench, year);
             if(this.handler){
@@ -106,12 +124,12 @@ class Library {
     
     /**
      * Renders the entries of specified trench name and number.
+     * @returns void
      */
     async renderTrench(areaAndNumber) {
         const mainBlock = document.getElementById('mainBlock');
         mainBlock.innerHTML = ''; // clear the innerHTML
         const trenchArr = this.books.filter(b => b['Trench and Trench Number'].trim().toLowerCase() === areaAndNumber.trim().toLowerCase());
-        console.log(trenchArr);
         trenchArr.forEach(b => {
             const bookDiv = document.createElement('div');
             bookDiv.classList.add('book-container');
@@ -126,11 +144,14 @@ class Library {
         this.getBooksLink();
     }
 
+    /**
+     * Renders the entries of specified year.
+     * @returns void
+     */
     async renderYear(year){
         const mainBlock = document.getElementById('mainBlock');
         mainBlock.innerHTML = ''; // clear the innerHTML
         const yearArr = this.books.filter(b => parseInt(b['Year']) === parseInt(year.trim()));
-        console.log(yearArr);
         yearArr.forEach(b => {
             const bookDiv = document.createElement('div');
             bookDiv.classList.add('book-container');
@@ -145,17 +166,18 @@ class Library {
         this.getBooksLink();
     }
 
+    /**
+     * Attaches event listeners to trench and year filters.
+     * @returns void
+     */
     filters(){
         document.getElementById('byTrench').addEventListener('change', async (event) => {
             const selectedTrench = event.target.value;
-            console.log('triggered filter');
-            console.log(selectedTrench);
             await this.renderTrench(selectedTrench);
         }); 
     
         document.getElementById('byYear').addEventListener('change', async (event) => {
             const selectedYear = event.target.value;
-            console.log('triggered filter');
             await this.renderYear(selectedYear);
         });
     }

@@ -18,16 +18,17 @@ const config = {
 const BUCKET_NAME = "pc-interactive-trench-book-assets";
 
 /**
- * Populates the database with attributes, including the imageURL which is pulled from Amazon S3.
+ * Populates the database with attributes, including the imageURL which is pulled from cloud database Amazon S3.
  * When creating folders for each trench book in S3, follow the naming convention:
  * [TrenchName][TrenchNumber]-[ExcavationYear].
  * Ex: Tesoro26-2015
  * The function will populate fields using the following naming convention for images:
  * [TrenchName][TrenchNumber][ExcavationYear]P[PageNumber].
  * Ex: Tesoro262015P0.jpeg.
- * Page numbers are 0 indexed, with the first page, usually title page, set to 0.
- * @param {String} title 
- * @param {String} year 
+ * Page numbers are 0 indexed, with the first page, usually the title page, set to 0.
+ * @param {string} title Trench name and number.
+ * @param {string} year The year the trench was excavated.
+ * @returns void
  */
 async function seedPages(title, year){
     await sequelize.sync({ force: true });
@@ -54,6 +55,13 @@ async function seedPages(title, year){
     }
 };
 
+/**
+ * Generates the raw text from image using the tesseract module, which converts image to text. 
+ * Please be advised that to run this locally, you will first need to install tesseract. 
+ * @see https://tesseract-ocr.github.io/tessdoc/
+ * @param {string} imgUrl URL for the image stored in the cloud.
+ * @returns string 
+ */
 async function getText(imgUrl) {
     const text = await tesseract.recognize(imgUrl, config);
     return text;
