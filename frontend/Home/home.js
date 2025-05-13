@@ -107,6 +107,10 @@ class Library {
     getBooksLink(){
         const bookTitle = document.body.querySelectorAll('.book-container');
         bookTitle.forEach(e => e.addEventListener('click', async (e) => {
+            const target = e.target;
+            if (target.tagName.toLowerCase() === 'a') {
+                return; 
+            };
             e.preventDefault();  
             // Get the trench and year from the clicked title's data attributes
             const trench = e.currentTarget.dataset.areaAndNumber;
