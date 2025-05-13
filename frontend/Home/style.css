@@ -71,7 +71,6 @@ button:hover{
     gap: 8px; /* spacing between lines */
 }
 
-
 .book-container span {
     display: flex;
     justify-content: space-between; /* creates clean separation */

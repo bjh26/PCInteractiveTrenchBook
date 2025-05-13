@@ -18,6 +18,7 @@ class Library {
             2015, 2016, 2017, 2018, 2019, 2020, 2021,
             2022, 2023, 2024, 2025
         ];
+        this.handler;
     }
 
     /**
@@ -48,6 +49,7 @@ class Library {
                 <option value="" disabled selected>By Year</option>
             </select>`;
         // for later: <select class="filter-button" id="byAuthor">By Author</select>
+        console.log('books:', this.books);
         this.books.forEach(b => {
             const bookDiv = document.createElement('div');
             bookDiv.classList.add('book-container');
@@ -82,16 +84,23 @@ class Library {
      */
     getBooksLink(){
         const bookTitle = document.body.querySelectorAll('.book-container');
+        console.log('booktitle', bookTitle)
         // const mainBlock = document.getElementById('mainBlock');
         bookTitle.forEach(e => e.addEventListener('click', async (e) => {
             e.preventDefault();  
             // Get the trench and year from the clicked title's data attributes
-            const trench = e.target.dataset.areaAndNumber;
-            const year = e.target.dataset.year;
+            console.log('element: ', e);
+            const trench = e.currentTarget.dataset.areaAndNumber;
+            const year = e.currentTarget.dataset.year;
             console.log('trench',trench,'year',year);
             // Instantiate the Book class and render the book
             const book = new Book(trench, year);
+            if(this.handler){
+                document.removeEventListener('keydown', this.handler);
+            } 
             await book.render();  // Render the selected book
+            this.handler = book.getKeyDown();
+            document.addEventListener('keydown', this.handler);
         }));
     }
     

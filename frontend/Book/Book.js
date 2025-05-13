@@ -16,6 +16,22 @@ export class Book {
         this.currentPage = 0;
         this.pages =[];
         this.viewMode = 'img';
+        this.handler = (event) => {
+                if (event.key === 'ArrowLeft') {
+                    this.prev();
+                    this.setSlider();
+                } else if (event.key === 'ArrowRight') {
+                    this.next();
+                    this.setSlider();
+                }  
+        };
+    }
+
+    /**
+     * Gets the keydown global events. 
+     */
+    getKeyDown(){
+        return this.handler;
     }
 
     /**
@@ -23,7 +39,9 @@ export class Book {
      */
     async loadPages() {
         console.log('pages loading...');
+        console.log(this.areaAndNumber.replace(/\s+/g, ''))
         this.pages = await getPages(this.areaAndNumber.replace(/\s+/g, ''), this.year.toString(), this.author);
+        console.log(this.pages);
         this.updatePage();  // Once pages are loaded, update the current page view
     }
 
@@ -63,7 +81,9 @@ export class Book {
         if(this.currentPage < this.pages.length - 2) {
             this.currentPage += 1;
             this.updatePage();
+            console.log('current page', this.currentPage);
         } else {
+            console.log('current page', this.currentPage);
             alert("You have reached the last page.");
         }
     }
@@ -75,7 +95,9 @@ export class Book {
         if(this.currentPage >= 1) {
             this.currentPage -= 1;
             this.updatePage();
+            console.log('current page', this.currentPage);
         } else {
+            console.log('current page', this.currentPage);
             alert("You have reached the first page.");
         }
     }
@@ -162,17 +184,19 @@ export class Book {
             }
         });
         // Left and Right keys
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'ArrowLeft') {
-                this.prev();
-            } else if (event.key === 'ArrowRight') {
-                this.next();
-            }
-            this.setSlider();
-        });
+        // document.addEventListener('keydown', (event) => {
+        //     if (event.key === 'ArrowLeft') {
+        //         this.prev();
+        //         this.setSlider();
+        //     } else if (event.key === 'ArrowRight') {
+        //         this.next();
+        //         this.setSlider();
+        //     }  
+        // });
         // Home button
-        document.getElementById('home').addEventListener('click', () => {
-            library.render();
+        document.getElementById('home').addEventListener('click', async () => {
+            await library.render();
+            console.log('lib actually rendered')
         });
     }
 
