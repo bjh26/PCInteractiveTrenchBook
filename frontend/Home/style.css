@@ -10,7 +10,8 @@ h2{
 .nav-bar{
    display: flex;
    justify-content: space-between;
-   background-color: rgba(95, 93, 93, 0.862);
+   background-color: #05668D;
+   /* background-color: rgba(95, 93, 93, 0.862); */
    opacity: 20px;
    color:white;
    padding-left: 30px;

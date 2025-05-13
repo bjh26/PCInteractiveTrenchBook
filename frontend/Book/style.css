@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: center;   /* centers items horizontally */
     align-items: center;  
-    background-color: #ccc;
+    background-color: #EBF2FA;
     padding: 20px;
 }
 
@@ -19,12 +19,12 @@ img{
 
 .button-right{
     padding: 20px;
-    border-radius: 2px;
+    border-radius: 10px;
 }
 
 .button-left{
     padding: 20px;
-    border-radius: 2px;
+    border-radius: 10px;
 }
 
 button{
@@ -45,7 +45,7 @@ button{
 .page-jump-container{
     display: flex;
     flex-direction: column;
-    background-color: #ccc;
+    background-color: #EBF2FA;
 }
 
 .slider-container{
@@ -57,7 +57,7 @@ button{
     align-self: center;
     padding-bottom: 10px;
     align-items: stretch;
-    background-color: #ccc;
+    background-color: #EBF2FA;
 }
 
 .page-num-container{
@@ -66,7 +66,7 @@ button{
     flex: 0 0 10%;
     /* grid-column: 2; */
     padding-bottom: 20px;
-    background-color: #ccc;
+    background-color: #EBF2FA;
 }
 
 input[type='range'] {
