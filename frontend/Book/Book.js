@@ -170,7 +170,7 @@ export class Book {
      * @returns string
      */
     getTitle() {
-        return this.areaAndNumber;
+        return this.areaAndNumber + ', ' + this.year;
     }
 
     /**
