@@ -4,11 +4,35 @@ export class Book {
 
     /**
      * Constructs a trench book.
-     * @param {String} areaAndNumber 
-     * @param {String} year 
-     * @param {number} currentPage
-     * @param {string} author
+     * @param {string} areaAndNumber Area and number of the specified trench.
+     * @param {string} year Year the trench was excavated.
+     * @param {string} author Optional: the author of the trench book. Default to PC, short for Poggio Civitate.
      */
+
+    /**
+     * @type {number} 
+     * The current page the book is on.
+     */
+    currentPage;
+
+    /**
+     * @type {Object[]} 
+     * A list of objects that store the metadata for each page in the trench book.
+     */
+    pages;
+    
+    /**
+     * @type {string} 
+     * The current viewing mode. Default to image. 
+     */
+    viewMode;
+
+    /**
+     * @type {(event: any) => void} 
+     * A function that implements the global keydown event for switching between pages using the left and right arrow keys. 
+     */
+    viewMode;
+
     constructor(areaAndNumber, year, author="PC"){
         this.areaAndNumber = areaAndNumber;
         this.year = year;
@@ -16,22 +40,40 @@ export class Book {
         this.currentPage = 0;
         this.pages =[];
         this.viewMode = 'img';
-        console.log('start')
-        this.loadPages(); 
+        this.handler = (event) => {
+                if (event.key === 'ArrowLeft') {
+                    this.prev();
+                    this.setSlider();
+                } else if (event.key === 'ArrowRight') {
+                    this.next();
+                    this.setSlider();
+                }  
+        };
+    }
+
+    /**
+     * Gets the keydown global events. 
+     * @returns A function that implements the keydown events. 
+     */
+    getKeyDown(){
+        return this.handler;
     }
 
     /**
      * Load pages asynchronously by calling getPages.
+     * @returns void
      */
     async loadPages() {
-        console.log('pages loading...')
-        this.pages = await getPages(this.areaAndNumber, this.year, this.author);
+        console.log('pages loading...');
+        console.log(this.areaAndNumber.replace(/\s+/g, ''))
+        this.pages = await getPages(this.areaAndNumber.replace(/\s+/g, ''), this.year.toString(), this.author);
         this.updatePage();  // Once pages are loaded, update the current page view
     }
 
      /**
      * Update the current page view after the pages have been loaded. 
      * Dynamically responds to image and text views.
+     * @returns void
      */
     updatePage() {
         const pageSrc = this.pages.find(p => p.pageNumber === this.currentPage);
@@ -48,6 +90,7 @@ export class Book {
 
     /**
      * Toggles views between image and text views.
+     * @returns void
      */
     toggleView() {
         this.viewMode = this.viewMode === 'img' ? 'text' : 'img';
@@ -60,6 +103,7 @@ export class Book {
 
     /**
      * Goes to next page.
+     * @returns void
      */
     next() {
         if(this.currentPage < this.pages.length - 2) {
@@ -72,36 +116,33 @@ export class Book {
 
     /**
      * Goes to previous page.
+     * @returns void
      */
     prev() {
         if(this.currentPage >= 1) {
             this.currentPage -= 1;
             this.updatePage();
         } else {
-            alert("You have reached the first page.")
+            alert("You have reached the first page.");
         }
     }
 
     /**
-     * Returns path to current page.
+     * Returns url to current page.
+     * @returns string
      */ 
     getCurrPage() { 
-        console.log(this.currentPage)
-        console.log(this.pages)
-
         const page = this.pages.find(page => page.pageNumber === this.currentPage);
-
         if (!page) {
           console.warn(`No page found for area ${this.areaAndNumber}, page ${this.currentPage}`);
           return null;
         }
-
-        console.log(`..${page.imageUrl}`);
         return (page.imageUrl);
     }
 
     /**
      * Jumps to the page as indicated by sliding bar.
+     * @returns void
      */
     setSlider() {
         const slider = document.getElementById('slider');
@@ -111,8 +152,9 @@ export class Book {
     }
 
     /**
-     * Jumps to the specified page with specific page number.
+     * Jumps to the specified page with page number.
      * @param {number} num 
+     * @returns void
      */
     jumpToPage(num) {
         if (num > -1 && num < this.pages.length - 1) {
@@ -124,7 +166,8 @@ export class Book {
     }
 
     /**
-     * Gets trench book title.
+     * Returns trench book title.
+     * @returns string
      */
     getTitle() {
         return this.areaAndNumber;
@@ -132,6 +175,7 @@ export class Book {
 
     /**
      * Adds all the necessary event listeners.
+     * @returns void
      */
     addEventListeners(){
         // Previous button
@@ -163,28 +207,24 @@ export class Book {
                 this.setSlider();
             }
         });
-        // Left and Right keys
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'ArrowLeft') {
-                this.prev();
-            } else if (event.key === 'ArrowRight') {
-                this.next();
-            }
-            this.setSlider();
-        });
         // Home button
-        document.getElementById('home').addEventListener('click', () => {
-            library.render();
+        document.getElementById('home').addEventListener('click', async () => {
+            await library.render();
         });
     }
 
+    /**
+     * Renders a Book instance. 
+     * @returns void
+     */
     async render() {
+        await this.loadPages(); 
         const mainBlock = document.getElementById('mainBlock');
         mainBlock.classList.add('page-container');
         const navBar = document.getElementById('nav-bar');
         // Nav Bar html
         navBar.innerHTML = '';
-        navBar.innerHTML = `<h1 class="title-container nav-bar-item" id="title"> Trench Book Title </h1>
+        navBar.innerHTML = `<h1 class="title-container nav-bar-item" id="title"> ${this.getTitle()} </h1>
             <button class="hamburger" id="home">Home</button>`;
         // Main Block html
         mainBlock.innerHTML = ''; // clear the innerHTML
@@ -197,6 +237,9 @@ export class Book {
                                </div> `;
         // Adds the navigational elements.
         const body = document.body;
+        if(document.getElementById('pageJump')){
+            document.getElementById('pageJump').remove();
+        }
         const pageJump = document.createElement('div');
         pageJump.classList.add('page-jump-container');
         pageJump.id = 'pageJump';
