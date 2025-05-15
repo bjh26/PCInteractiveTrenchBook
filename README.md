@@ -17,4 +17,4 @@ This project came to be when Anthony Tuck came up to Cole Reilly and me and prop
 
 ## Acknowledgements
 - This project is used to fulfill the Honors Thesis requirement for the University of Massachusetts Amherst Commonwealth Honors College.
-- I want to extend my most heartfelt gratitude to my parents and sisters Daphne and Peggy; primary advisor Cole Reilly; secondary advisor Anthony Tuck; academic advisors Cody Olson and Isaac Goldstein; OpenContext's Eric Kansa; Poggio Civitate members Kate Kriendler and Anne Glennie; CompSci326 professor Joe Chiu and Team #25 members and TA - Nishil Adina, Khang Nguyen, Elizabeth O'Brien, and Mashrur Rashik - for making this project possible.
+- I want to extend my most heartfelt gratitude to my parents and sisters Daphne and Peggy; primary advisor Cole Reilly; secondary advisor Anthony Tuck; academic advisors Cody Olson and Isaac Goldstein; OpenContext's Eric Kansa; Poggio Civitate members Kate Kriendler and Ann Glennie; CompSci326 professor Joe Chiu and Team #25 members and TA - Nishil Adina, Khang Nguyen, Elizabeth O'Brien, and Mashrur Rashik - for making this project possible.
