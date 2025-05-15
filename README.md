@@ -1,10 +1,10 @@
 # In the Magazzino: Poggio Civitate Interactive Trench Book 
 
-## Conception
-This project came to be when Anthony Tuck came up to Cole Reilly and me and proposed the idea of creating a more user-friendly experience for trench book readers. OpenContext currently hosts all trench book scans (from the years where transcription from writing to typed letters wasn't yet available, think the early years), but the user experience isn't the most intuitive: to move from page-to-page, the user will have to scroll down and click on a hyperlink and be taken to a new page. Furthermore, the references in these trench books (such as the finds, loci, etc.) are stored separately and cannot be easily referenced to by the reader. To ameliorate the user experience, we have decided to undergo this project.
-
 ## About
 The goal of this goal is to mimic the action of flipping through a book in real life while providing the additional information associated with the objects, loci, and other references mentioned on the pages.
+
+## Conception
+This project came to be when Anthony Tuck came up to Cole Reilly and me and proposed the idea of creating a more user-friendly experience for trench book readers. OpenContext currently hosts all trench book scans (from the years where transcription from writing to typed letters wasn't yet available, think the early years), but the user experience isn't the most intuitive: to move from page-to-page, the user will have to scroll down and click on a hyperlink and be taken to a new page. Furthermore, the references in these trench books (such as the finds, loci, etc.) are stored separately and cannot be easily referenced to by the reader. To ameliorate the user experience, we have decided to undergo this project.
 
 ## Process
 - As I started the project, I looked to archive.org for implementation and inspiration. They provided the experience that I think this project aims to bring for trench book readers. Currently, the files are all stored in this repo, and all calls for image sources (the page scans) are local paths. I downloaded the trench book scans from OpenContext and manually renamed them. Its a small amount, with only 12 pages used as example.
